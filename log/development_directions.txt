@@ -1,0 +1,67 @@
+Goals:
+Make it read csv from user upload                  -done
+make it when u upload csv move to home page        -done
+home page has button to change csv                 -done
+side column with customized names according to csv -done
+each side column opens new page with checkboxes    -done
+add button (same position as change csv) that 
+	hides/shows tag description                -done
+add button to show synonym                         -done
+add page to allow choosing section/tag/description -done
+	columns.
+search function for tags			   -done
+add dropdown menu to select desired columns to use
+	at start to reduce hard coded indexes      -done
+^ but also make new class so widget.description 
+	will return empty if called instead of 
+	returning error                            -done
+reduce toString methods
+first page, before csv finalised into system, 
+	show basic information (columns names , no of unique
+	values in column, number of rows, file size, date created, 
+	author etc)
+create local and global reset button               -half
+	(place at sections and main page, next to search bar)
+create addable pages (e.g. character)              -done
+
+
+really really far goals:
+allow creation of new tags and retrieve changed csv
+	note new tags require creation of formats
+
+
+Widgets:
+first_page
+container - center - column - 
+	card 
+	elevatedButton for upload
+
+home_page
+mainArea - coloredBox - contentforIndex()
+	mainpage - placeholder
+	tickpage - column 
+		- padding - richtext - textspan [title/subtitle]
+		- expanded - gridview - checkblockwithsubtitle
+			- checkboxListTitle [with individual states]
+Row/Column - 
+	SafeArea - Container - NavigationRail - navigationrailDestination - icon - text
+	expanded - mainArea
+
+
+UI:
+center the button, change bg color                  -done
+fix description in textbox overlap when resoultion
+	changes
+fix selection page overlap resolution shirnks
+
+
+Bugs:
+synonym index is currently defaulted                -done
+synonym and description assumed existing            -done
+flashingBox not flashing correctly at selectionP    -done
+
+
+Ideas:
+Make an intro page, fade out forever once past (until hard reset)
+	og (home: const MyHomePage(title: 'Flutter Demo Home Page'), L23)
+refactor files if its get too long, try maintain within 200 lines
