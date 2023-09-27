@@ -59,6 +59,8 @@ Bugs:
 synonym index is currently defaulted                -done
 synonym and description assumed existing            -done
 flashingBox not flashing correctly at selectionP    -done
+capital copy to clipboard for history listview
+unload csv does not fully reset environment
 
 
 Ideas:
