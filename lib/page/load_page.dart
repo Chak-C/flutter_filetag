@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:foldtag/page/selection_page.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 
 class LoadPage extends StatelessWidget {
   const LoadPage({super.key});
+
+  void navigateToSelectionPage(BuildContext context) {
+    try {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SelectionPage()),
+      );
+    } catch (e) {
+      // Handle and log any errors
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +44,15 @@ class LoadPage extends StatelessWidget {
                 )
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   appState.loadCSV();
+                  
+                  await Future.delayed(const Duration(milliseconds: 200));
+
+                  if(appState.currentCSV != null) {
+                    // ignore: use_build_context_synchronously
+                    navigateToSelectionPage(context);
+                  }
                 },
                 child: const Text('CSV. NOW.'),
               ),

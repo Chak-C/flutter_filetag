@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foldtag/main.dart';
+import 'package:foldtag/page/home_page.dart';
 import 'package:foldtag/support_widgets/miscellenous_widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,29 @@ class SelectionPage extends StatefulWidget {
 }
 
 class _SelectionPageState extends State<SelectionPage> {
+
+  void navigateToHomePage(BuildContext context) {
+    try {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } catch (e) {
+      // Handle and log any errors
+    }
+  }
+
+  void reloadCurrentPage(BuildContext context) {
+    try {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SelectionPage()),
+      );
+    } catch (e) {
+      // Handle and log any errors
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
@@ -45,10 +69,14 @@ class _SelectionPageState extends State<SelectionPage> {
             ElevatedButton(
               onPressed: () {
                 appState.flashError = true;
-                setState(() {
-                  // Note if selection is fine then the page would load to home_page
-                  appState.columnIndexFinalProcess();
-                });
+                appState.columnIndexFinalProcess();
+                Future.delayed(const Duration(milliseconds: 200));
+
+                if (appState.selectionError.every((e) => e == '')) {
+                  navigateToHomePage(context);
+                } else {
+                  reloadCurrentPage(context);
+                }
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(8.0),
@@ -89,6 +117,9 @@ class DropRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.watch<AppState>();
+    int? selectedIndex = appState.selectedColumns[dropdownNumber];
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -107,7 +138,8 @@ class DropRow extends StatelessWidget {
             ),
           ),
         SectionSelect(
-          dropdownNumber: dropdownNumber
+          dropdownNumber: dropdownNumber,
+          initialIndex: selectedIndex ?? 0
         ),
       ],
     );
@@ -118,20 +150,28 @@ class DropRow extends StatelessWidget {
 class SectionSelect extends StatefulWidget {
   const SectionSelect({
     super.key,
-    required this.dropdownNumber
+    required this.dropdownNumber,
+    required this.initialIndex
   });
   final int dropdownNumber;
+  final int initialIndex;
   
   @override
   State<SectionSelect> createState() => _SectionSelectState();
 }
 
 class _SectionSelectState extends State<SectionSelect> {
-  var selectedIndex = 0;
+  var selectedIndex = 0; 
   
   // changes the column selection in dropdown menus
   void changeSelection(AppState appState, int dropdownNumber, int? columnIndex) {
     appState.selectedColumns[dropdownNumber] = columnIndex;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.initialIndex;
   }
 
   @override
@@ -148,6 +188,7 @@ class _SectionSelectState extends State<SectionSelect> {
     final theme = Theme.of(context);
     final color = theme.colorScheme.secondary;
 
+    
     return Row(
       children: [
         SizedBox(

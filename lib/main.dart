@@ -45,21 +45,21 @@ class AppState extends ChangeNotifier {
   LoadedCSV? currentCSV;
 
   // holds destinations and destinations retrieved from csv
-  List<dynamic> destinationList = [];
-  int scannableDestination = 0;
+  late List<dynamic> destinationList;
+  late int scannableDestination;
 
   // holds ticked attributes
-  var included = <AttributeObject>[];
+  late List<AttributeObject> included;
 
   // holds history and history list key
-  var history = <String>[];
+  late List<String> history;
   GlobalKey? historyListKey;
 
   // holds designated columns and errors, used in selection_page mainly
   // 0: ID, 1: Category, 2: Attribte, 3: Synonym (nullable), 4: 
-  List<int?> selectedColumns = List.generate(6, (index) => null);
-  List<String> selectionError = List.generate(6, (index) => 'Null Error');
-  bool flashError = false;
+  late List<int?> selectedColumns;
+  late List<String> selectionError;
+  late bool flashError;
 
   // holds finalised name
   var code = '';
@@ -67,6 +67,20 @@ class AppState extends ChangeNotifier {
   //
   // Global Functions
   //
+
+  void setup() {
+    destinationList = [];
+    scannableDestination = 0;
+
+    included = [];
+    history = [];
+
+    selectedColumns = List.generate(6, (index) => null);
+    selectionError = List.generate(6, (index) => 'Null Error');
+    flashError = false;
+
+    code = '';
+  }
 
   /// updates included attributes
   void toggleIncluded(AttributeObject attribute) {
@@ -80,7 +94,7 @@ class AppState extends ChangeNotifier {
 
   /// removes all included attributes
   void resetIncluded() {
-    included = <AttributeObject>[];
+    included = [];
     code = '';
     notifyListeners();
   }
@@ -115,18 +129,21 @@ class AppState extends ChangeNotifier {
       List<List<dynamic>> csvList = const CsvToListConverter().convert(csvString);
       currentCSV = LoadedCSV(currentCSV: csvList);
     }
+
+    setup();
+
     notifyListeners();
   }
 
   // user unloads .csv from the application
   void unloadCSV() {
     currentCSV = null;
-    selectedColumns = List.generate(6, (index) => null);
-    selectionError = List.generate(6, (index) => '');
-    resetIncluded();
+    //reset stored data
+    setup();
   }
 
   // finalises the validity of current column indexes with stored selectedColumns[]
+  // Only used in selectionPage
   void columnIndexFinalProcess() {
     selectionError = currentCSV!.confirmValidColumnSelection(selectedColumns);
 
@@ -140,8 +157,6 @@ class AppState extends ChangeNotifier {
         currentCSV!.convertColumnToList(selectedColumns[3]!, ',');
       }
     }
-
-    notifyListeners();
   }
 
   void addCustomDestination(CustomObject newDestination) {
@@ -174,15 +189,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<AppState>();
-    if(appState.currentCSV?.currentCSV.isEmpty ?? true) {
-      return const LoadPage();
-    }
-
-    if(!appState.selectionError.every((e) => e == '')) {
-      return const SelectionPage();
-    }
-
-    return const HomePage();
+    return const LoadPage();
   }
 }

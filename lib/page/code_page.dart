@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foldtag/main.dart';
 import 'package:foldtag/namer.dart';
+import 'package:foldtag/page/load_page.dart';
 import 'package:provider/provider.dart';
 
 class CodePage extends StatefulWidget {
@@ -15,6 +16,19 @@ class CodePage extends StatefulWidget {
 }
 
 class _CodePageState extends State<CodePage> {
+
+  void replaceWithLoadPage(BuildContext context) {
+    try {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LoadPage()),
+        (Route<dynamic> route) => false, // Remove all existing routes
+      );
+    } catch (e) {
+      // Handle and log any errors
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
@@ -75,11 +89,12 @@ class _CodePageState extends State<CodePage> {
                 label: const Text('Reset'),
                 style: buttonStyle
               ),
-    // Unload button
+              // Unload button
               const SizedBox(width: 10),
               ElevatedButton.icon(
                 onPressed: () {
                   appState.unloadCSV();
+                  replaceWithLoadPage(context);
                 },
                 icon: const Icon(Icons.videogame_asset_off_outlined, color: Color.fromARGB(245, 255, 255, 255)),
                 label: const Text('Unload', style: TextStyle(color: Color.fromARGB(245, 255, 255, 255)),),
