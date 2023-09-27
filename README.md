@@ -10,7 +10,7 @@ This project is Chak-C's starting point for a Flutter application.
 Installing
 ========================================
 
-The installer.exe will create all the necessary files and executable for the Flutter application.
+The installer.exe in installer folder creates all the necessary files and executable for the Flutter application.
 
 License
 ========================================
