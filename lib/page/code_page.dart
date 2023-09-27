@@ -56,12 +56,12 @@ class _CodePageState extends State<CodePage> {
         )
       )
       : ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.grey),
-        foregroundColor: MaterialStateProperty.all(Colors.grey),
+        backgroundColor: MaterialStateProperty.all(colorScheme.surfaceVariant),
+        foregroundColor: MaterialStateProperty.all(colorScheme.surfaceVariant),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Colors.grey)
+            side: BorderSide(color: colorScheme.surfaceVariant)
           )
         )
       );
