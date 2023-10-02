@@ -12,6 +12,11 @@ Installing
 
 The installer.exe in installer folder creates all the necessary files and executable for the Flutter application.
 
+Getting Started
+========================================
+
+The test file, testing_1.csv, is fully compatible with the application. The available public test file, testing_2.csv, is located in test folder with limited functionality.
+
 License
 ========================================
 
