@@ -1,0 +1,17 @@
+1. Launch inno setup compiler
+2. Specs:
+    Application name: FoldTag
+    Application version: prototype v1.0.1
+    Publisher: AzuCQ
+
+    exe destination: \*application folder*\build\windows\runner\Release
+    add .dil file and data folder in same destination
+    edit the data folder selection, change destination subfolder to 'data'
+
+    turn off association to a file type
+
+    default until compiler settings
+    change compiler output file name to FoldTag Installer
+
+    compile script and run
+3. installer is located in designated folder (if not selected as \*application folder*\installer)
