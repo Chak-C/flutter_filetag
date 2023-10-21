@@ -5,10 +5,8 @@ import 'package:foldtag/page/code_page.dart';
 import 'package:provider/provider.dart';
 
 import 'page/load_page.dart';
-import 'page/home_page.dart';
 import 'csv_analysis.dart';
 import 'package:foldtag/page_sp_fn/cupage_sp.dart';
-import 'package:foldtag/page/selection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foldtag/csv_analysis.dart';
 import 'package:foldtag/namer.dart';
+import 'package:foldtag/page_sp_fn/tpage_fns.dart';
 import 'package:foldtag/support_widgets/miscellenous_widgets.dart';
 import 'package:foldtag/support_widgets/search_bar.dart';
 import '../support_widgets/checkblock_factory.dart';
@@ -50,7 +51,7 @@ class _TickPageState extends State<TickPage> {
     }
     setState(() {
       filteredData = currentData.where((item) {
-        return item[attributeIndex].toString().toLowerCase().contains(searchText.toLowerCase());
+        return checkSearchTokens(item, attributeIndex, synonymIndex, searchText);
       }).toList();
     });
   }

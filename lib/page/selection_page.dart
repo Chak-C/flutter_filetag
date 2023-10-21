@@ -20,7 +20,6 @@ class SelectionPage extends StatefulWidget {
 }
 
 class _SelectionPageState extends State<SelectionPage> {
-  final PageController _pageController = PageController(initialPage: 0);
   
   void onContinuePressed() {
     final appState = context.read<AppState>();

@@ -38,7 +38,8 @@ class _CodePageState extends State<CodePage> {
 
     // TODO hardcoded sectino order
     final List<String> sectionOrder = ['Origin','Character','Position','Hair','Tags','Safe'];
-    
+    // final List<String> sectionOrder = ['College','Type','Area','Tags','Progress'];
+
     //TODO finialise code generating logic
     appState.code = appState.included.isEmpty 
       ? '' 
